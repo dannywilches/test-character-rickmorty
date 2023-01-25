@@ -1,0 +1,82 @@
+<div class="h-100 w-100" style="overflow-y: scroll; opacity: 50;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <a class="navbar-brand mx-auto" href="#">Personajes de Rick and Morty</a>
+</nav>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row mt-3 mb-3 p-3 d-flex justify-content-center abs-center">
+            <div class="col-sm-12 mt-3">
+                <div class="card shadow-card  mt-3 mb-3">
+                    <div class="card-header">
+                        Lista de Personajes
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input 
+                                    class="form form-control form-control-sm" 
+                                    placeholder="Buscar..." 
+                                    type="text"
+                                    [(ngModel)]="filterCharacter"
+                                    name="filterCharacter"
+                                >
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-sm btn-primary" (click)="cleanFilter()">Limpiar</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <pre>
+                                <table class="table table-responsive table-striped table-hover">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Avatar</th>
+                                            <th>Nombre</th>
+                                            <th>Planeta</th>
+                                            <th>Género</th>
+                                            <th>Especie</th>
+                                            <th>Estado</th>
+                                            <th>Fecha de Creación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center" *ngFor="let character of Characters | filter:filterCharacter | paginate: {
+                                            itemsPerPage: tableSize,
+                                            currentPage: page,
+                                            totalItems: count
+                                        }; let i = index ">
+                                            <td><img src="{{character.image}}" alt="Avatar" class="avatar"></td>
+                                            <td>{{character.name}}</td>
+                                            <td>{{character.location.name}}</td>
+                                            <td>{{character.gender}}</td>
+                                            <td>{{character.species}}</td>
+                                            <td>{{character.status}}</td>
+                                            <td>{{character.created | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mt-2 text-center">
+                                    <pagination-controls
+                                        previousLabel="Ant"
+                                        nextLabel="Sig"
+                                        (pageChange)="onTableDataChange($event)"
+                                    >
+                                    </pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
