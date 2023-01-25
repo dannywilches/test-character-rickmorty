@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
 
   transform(value: any, arg: any): any {
-    if (arg === '' || arg.length < 3) return value;
+    // Este pipe esta diseñado para el filtrado de la información, en el for valida las coincidencias con cada uno de los campos de la tabla
+    if (arg === '') return value;
     const resultCharacter = [];
     for(const character of value) {
       if (character.name.toLowerCase().indexOf(arg.toLowerCase()) > -1){

@@ -1,4 +1,4 @@
-export class CharacterAttr {
+export class CharacterModel {
     id!: Number;
     created!: Date;
     image!: String;

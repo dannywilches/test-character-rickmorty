@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
-import { CharacterAttr } from './character';
+import { CharacterModel } from './character';
 
 @Component({
   selector: 'app-list-character',
@@ -10,7 +10,7 @@ import { CharacterAttr } from './character';
 export class ListCharacterComponent implements OnInit {
   // Variables donde se almacenan la informacion de los personajes y atributos
   DataInfo: any = [];
-  Characters: Array<CharacterAttr> = [];
+  Characters: Array<CharacterModel> = [];
   // Variables para la paginacion de la tabla
   title = 'paginataion';
   page: number = 1;
@@ -24,29 +24,24 @@ export class ListCharacterComponent implements OnInit {
   ngOnInit(): void {
     this.listCharacterComponent();
   }
-
+  // Función que recorre la información de retornada de la api y extrae los personajes y los va consultando y almacenando en el array Characters 
   listCharacterComponent():void {
     this.character.listInfo().subscribe(response =>{
-      console.log(response);
       this.DataInfo = response;
       Object.values(this.DataInfo.results).forEach((Places:any) => {
-        // console.log(Places);
         Object.values(Places.residents).forEach((character:any) => {
-          // console.log(character);
           this.character.getCharacter(character).subscribe(infoCharacter =>{
-            // console.log(infoCharacter);
             this.Characters.push(infoCharacter);
-            // console.log(this.Characters);
           });
         });
       });
     });
   }
-
+  // Función para la paginación
   onTableDataChange(event: any){
     this.page = event;
   }
-
+  // Función para limpiar el filtro
   cleanFilter(){
     this.filterCharacter = '';
   }
